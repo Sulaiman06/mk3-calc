@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Orbital Strike Cannon — Compact Edition MK3</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="title">
+    <h1>Orbital Strike Cannon</h1>
+    <div class="tag">Compact Edition MK3 — Targeting Calculator</div>
+  </header>
+
+  <div class="grid">
+
+    <div class="panel" id="origin_panel">
+      <div class="panel-head">CANNON ORIGIN</div>
+      <div class="panel-body">
+        <div class="field"><label for="ox">Origin X</label><input id="ox" type="number" value="-127"></div>
+        <div class="field"><label for="oy">Origin Y</label><input id="oy" type="number" value="-8"></div>
+        <div class="field"><label for="oz">Origin Z</label><input id="oz" type="number" value="128"></div>
+        <div class="field">
+          <label for="rot">Rotation</label>
+          <select id="rot" class="native-select-hidden">
+            <option value="0" selected>0°</option>
+            <option value="90">90°</option>
+            <option value="180">180°</option>
+            <option value="270">270°</option>
+          </select>
+          <div class="custom-dropdown" id="rot_dropdown">
+            <button type="button" class="dropdown-btn" id="rot_dropdown_btn">0°<span class="dropdown-arrow">▾</span></button>
+            <div class="dropdown-list" id="rot_dropdown_list" hidden>
+              <div class="dropdown-option selected" data-value="0">0°</div>
+              <div class="dropdown-option" data-value="90">90°</div>
+              <div class="dropdown-option" data-value="180">180°</div>
+              <div class="dropdown-option" data-value="270">270°</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">TARGET</div>
+      <div class="panel-body">
+        <div class="field"><label for="tx">Target X</label><input id="tx" type="number" value="-2468"></div>
+        <div class="field"><label for="ty">Target Y</label><input id="ty" type="number" value="89"></div>
+        <div class="field"><label for="tz">Target Z</label><input id="tz" type="number" value="1559"></div>
+      </div>
+    </div>
+
+    <div class="panel full" id="payload_panel">
+      <div class="panel-head">PAYLOAD TYPE</div>
+      <div class="panel-body">
+        <div class="field">
+          <label for="payload">Payload</label>
+          <select id="payload" class="native-select-hidden">
+            <option value="stab" selected>stab</option>
+            <option value="nuke">nuke</option>
+          </select>
+          <div class="custom-dropdown" id="payload_dropdown">
+            <button type="button" class="dropdown-btn" id="payload_dropdown_btn">stab<span class="dropdown-arrow">▾</span></button>
+            <div class="dropdown-list" id="payload_dropdown_list" hidden>
+              <div class="dropdown-option selected" data-value="stab">stab</div>
+              <div class="dropdown-option" data-value="nuke">nuke</div>
+            </div>
+          </div>
+        </div>
+        <div class="field"><label id="finalYLabel" for="fy">Final Y</label><input id="fy" type="number" value="-64"></div>
+      </div>
+    </div>
+
+    <div class="panel full panel-output">
+      <div class="panel-head sic-head">
+        <div class="sic-head-title">STRIKE ITEM COUNT</div>
+        <div class="sic-notch">
+          <span class="sic-col">Count</span><span class="sic-col">Stack</span><span class="sic-col">Extra</span>
+        </div>
+      </div>
+      <div class="panel-body" style="padding:0;">
+        <div class="sic-row"><span class="sic-label">Payload</span><span class="sic-col" id="payload_count">–</span><span class="sic-col" id="payload_stack">–</span><span class="sic-col" id="payload_extra">–</span></div>
+        <div class="sic-row"><span class="sic-label">Propellant / Swing Kill</span><span class="sic-col" id="prop_count">–</span><span class="sic-col" id="prop_stack">–</span><span class="sic-col" id="prop_extra">–</span></div>
+        <div class="sic-row"><span class="sic-label">Y Accel</span><span class="sic-col" id="yaccel_count">–</span><span class="sic-col" id="yaccel_stack">–</span><span class="sic-col" id="yaccel_extra">–</span></div>
+        <div class="sic-row"><span class="sic-label">X Accel</span><span class="sic-col" id="xaccel_count">–</span><span class="sic-col" id="xaccel_stack">–</span><span class="sic-col" id="xaccel_extra">–</span></div>
+        <div class="sic-row"><span class="sic-label">Z Accel</span><span class="sic-col" id="zaccel_count">–</span><span class="sic-col" id="zaccel_stack">–</span><span class="sic-col" id="zaccel_extra">–</span></div>
+      </div>
+    </div>
+
+    <div class="panel full panel-output">
+      <div class="panel-head">WAIT TIME</div>
+      <div class="panel-body">
+        <div class="summary">
+          <div class="stat"><div class="k">Game Ticks</div><div class="v" id="ticks">–</div></div>
+          <div class="stat"><div class="k">Minutes</div><div class="v" id="minutes">–</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="full">
+      <div class="warning ok" id="warningBox">
+        <div class="w-head">WARNING</div>
+        <div class="w-body" id="warningText">All Good.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="legend">
+    <span class="sw"><span class="dot" style="background:var(--amber)"></span>Title</span>
+    <span class="sw"><span class="dot" style="background:var(--green)"></span>Input</span>
+    <span class="sw"><span class="dot" style="background:var(--blue)"></span>Output</span>
+    <span class="sw"><span class="dot" style="background:#ffdca8"></span>Header</span>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
